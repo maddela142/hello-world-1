@@ -1,25 +1,18 @@
-pipeline { 
-  
-   agent any
-
+pipeline {
+    agent any
+   tools {
+     maven 'mvn'
+ }
    stages {
-     stage('Test') { 
-        steps { 
-           sh 'echo "testing application..."'
+        stage('clone the code') {
+            steps {
+            sh 'git clone https://github.com/anilkumar3577/hello-world-1.git'   
+            }
         }
-      }
-
-         stage("Deploy application") { 
-         steps { 
-           sh 'echo "deploying application..."'
-         }
-
-     }
-      stage("test") { 
-         steps { 
-           sh 'echo "for testing"'
-         }
-      }
-   	}
-
-   }
+        stage('build my code') {
+            steps {
+             sh 'mvn package'
+            }
+        }
+    }
+}
